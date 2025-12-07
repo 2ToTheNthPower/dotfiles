@@ -1,0 +1,23 @@
+[tools]
+bob = "latest"
+eza = "latest"
+fastfetch = "latest"
+fd = "latest"
+ffmpeg = "latest"
+fzf = "latest"
+lazydocker = "latest"
+lazygit = "latest"
+lazyssh = "latest"
+opencode = "latest"
+podman = "latest"
+ripgrep = "latest"
+rust = "latest"
+starship = "latest"
+tinytex = "latest"
+tmux = "latest"
+tree-sitter = "latest"
+yadm = "latest"
+zoxide = "latest"
+
+[settings]
+all_compile = true

@@ -9,7 +9,9 @@ alias .....="../../../.."
 
 export PATH="$HOME/.local/bin:$PATH"
 
-. "$HOME/.local/bin/env"
+export TERM=xterm-256color
 
+eval "$(mise activate zsh)"
 eval "$(starship init zsh)"
 
+export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
