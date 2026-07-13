@@ -1,0 +1,24 @@
+
+# --- ruff defaults (appended by the uv init wrapper in ~/.zshrc) ---
+# Self-contained on purpose: no `extend` to a personal global, so this project
+# lints identically on any machine / for any collaborator. target-version is
+# omitted — ruff infers it from [project] requires-python above.
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+extend-select = [
+  "I",   # isort           — sort & group imports
+  "B",   # flake8-bugbear  — likely bugs (mutable defaults, etc.)
+  "UP",  # pyupgrade       — modernize syntax for the target Python
+  "SIM", # flake8-simplify — simpler equivalent constructs
+  "C4",  # comprehensions  — cleaner list/dict/set comprehensions
+  "PIE", # flake8-pie      — small correctness/style wins
+  "RUF", # Ruff-native     — unused noqa, mutable class defaults, etc.
+  "D",   # pydocstyle      — docstring quality (Google convention)
+]
+# Don't demand a docstring on every symbol; polish the ones that exist.
+ignore = ["D1"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"

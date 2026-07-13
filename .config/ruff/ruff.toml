@@ -1,0 +1,39 @@
+# Global Ruff config — lives in dotfiles, symlinked to ~/.config/ruff/ruff.toml.
+#
+# Scope: this applies ONLY to Python files that have no project-local Ruff
+# config. A project's own pyproject.toml / ruff.toml FULLY replaces this file —
+# Ruff does not merge a project config with the user config. So these are your
+# defaults for loose scripts and configless repos, not an override of projects.
+#
+# target-version sets the minimum Python these files must run on. `UP` and other
+# version-aware rules modernize up to this version's syntax. Override per-project
+# via requires-python / target-version where a script must support older Pythons.
+target-version = "py313"
+
+[lint]
+# Keep Ruff's defaults (E4/E7/E9 pycodestyle errors + F Pyflakes) and add
+# high-signal, mostly-autofixable groups on top.
+extend-select = [
+  "I",   # isort           — sort & group imports
+  "B",   # flake8-bugbear  — likely bugs (mutable defaults, unused loop vars…)
+  "UP",  # pyupgrade       — modernize syntax for the target Python version
+  "SIM", # flake8-simplify — simpler equivalent constructs
+  "C4",  # comprehensions  — cleaner list/dict/set comprehensions
+  "PIE", # flake8-pie      — small correctness/style wins
+  "RUF", # Ruff-native     — unused noqa, mutable class defaults, etc.
+  "D",   # pydocstyle      — docstring quality (Google convention, see below)
+]
+
+# Ignore the "missing docstring" family (D100–D107): a global default shouldn't
+# demand a docstring on every throwaway script. The remaining D rules improve the
+# docstrings you *do* write. Opt into D1 per-project where docs are required.
+ignore = ["D1"]
+
+[lint.pydocstyle]
+# Enforce Google-style docstrings (sets the right ignores among conflicting
+# D-rules and expects Args:/Returns:/Raises: section headers).
+convention = "google"
+
+[format]
+# Format code examples inside docstrings too.
+docstring-code-format = true

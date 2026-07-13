@@ -1,22 +1,16 @@
 [tools]
 bob = "latest"
-eza = "latest"
-fastfetch = "latest"
+cmake = "latest"
 fd = "latest"
-ffmpeg = "latest"
 fzf = "latest"
-lazydocker = "latest"
 lazygit = "latest"
 lazyssh = "latest"
+node = "lts"
+opencode = "latest"
 podman = "latest"
 ripgrep = "latest"
 rust = "latest"
 starship = "latest"
-tinytex = "latest"
 tmux = "latest"
 tree-sitter = "latest"
-yadm = "latest"
 zoxide = "latest"
-
-[settings]
-all_compile = true
