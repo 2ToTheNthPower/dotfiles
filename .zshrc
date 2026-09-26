@@ -27,3 +27,9 @@ autoload -Uz compinit && compinit
 # fzf: Ctrl-R history search + **<tab> fuzzy completion.
 command -v fzf >/dev/null && source <(fzf --zsh)
 
+# Auto-activate the project's Python virtualenv on cd and shell startup.
+[ -s "$HOME/.auto-venv.sh" ] && source "$HOME/.auto-venv.sh"
+autoload -Uz add-zsh-hook
+add-zsh-hook chpwd _auto_venv
+_auto_venv
+

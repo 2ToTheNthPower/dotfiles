@@ -51,3 +51,11 @@ fi
 
 # fzf: Ctrl-R history search + **<tab> fuzzy completion.
 command -v fzf >/dev/null && source <(fzf --bash)
+
+# Auto-activate the project's Python virtualenv on cd and shell startup.
+[ -s "$HOME/.auto-venv.sh" ] && source "$HOME/.auto-venv.sh"
+case ";${PROMPT_COMMAND:-};" in
+*";_auto_venv;"*) ;;
+*) PROMPT_COMMAND="_auto_venv${PROMPT_COMMAND:+; $PROMPT_COMMAND}" ;;
+esac
+_auto_venv
