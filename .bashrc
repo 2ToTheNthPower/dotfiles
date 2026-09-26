@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # ~/.bashrc
 
 # If not running interactively, don't do anything.
@@ -6,20 +7,11 @@ case $- in
 *) return ;;
 esac
 
-alias v=nvim
+# Shared dotfiles helpers (env, aliases, functions, tools, venv, proxy).
+[ -s "$HOME/.shell/init.sh" ] && . "$HOME/.shell/init.sh"
 
-# Directory navigation. autocd lets a bare path act like `cd <path>`.
-shopt -s autocd
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
-
-export PATH="$HOME/.local/bin:$PATH"
-
-export TERM=xterm-256color
-
-[ -s "$HOME/set-proxy.sh" ] && source "$HOME/set-proxy.sh"
+# Bash-specific options.
+shopt -s autocd cdspell globstar checkwinsize 2>/dev/null
 
 # History: bigger, deduped, shared across sessions.
 HISTFILE="$HOME/.bash_history"
@@ -27,18 +19,17 @@ HISTSIZE=50000
 HISTFILESIZE=50000
 HISTCONTROL=ignoreboth:erasedups
 shopt -s histappend cmdhist
-
-# Colorized ls/grep, plus handy ls aliases.
-if [ -x /usr/bin/dircolors ]; then
-  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-  alias ls='ls --color=auto'
-  alias grep='grep --color=auto'
-  alias fgrep='fgrep --color=auto'
-  alias egrep='egrep --color=auto'
+# Flush new history lines so other sessions can see them.
+if [ -z "${_BASHRC_HISTORY_HOOKED:-}" ]; then
+  PROMPT_COMMAND="history -a${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
+  _BASHRC_HISTORY_HOOKED=1
 fi
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+
+# Readline: prefix search on Up/Down, case-insensitive completion.
+bind '"\e[A": history-search-backward' 2>/dev/null
+bind '"\e[B": history-search-forward' 2>/dev/null
+bind 'set completion-ignore-case on' 2>/dev/null
+bind 'set show-all-if-ambiguous on' 2>/dev/null
 
 # Completion.
 if ! shopt -oq posix; then
@@ -50,12 +41,9 @@ if ! shopt -oq posix; then
 fi
 
 # fzf: Ctrl-R history search + **<tab> fuzzy completion.
+# shellcheck disable=SC1090
 command -v fzf >/dev/null && source <(fzf --bash)
 
-# Auto-activate the project's Python virtualenv on cd and shell startup.
-[ -s "$HOME/.auto-venv.sh" ] && source "$HOME/.auto-venv.sh"
-case ";${PROMPT_COMMAND:-};" in
-*";_auto_venv;"*) ;;
-*) PROMPT_COMMAND="_auto_venv${PROMPT_COMMAND:+; $PROMPT_COMMAND}" ;;
-esac
-_auto_venv
+# zoxide: smarter cd.
+# shellcheck disable=SC1090
+command -v zoxide >/dev/null && eval "$(zoxide init bash)"

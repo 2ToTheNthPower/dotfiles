@@ -1,4 +1,4 @@
-# set-proxy.sh — sourced from ~/.zshrc
+# set-proxy.sh — sourced from ~/.shell/env.sh
 #
 # Set your proxy here. Empty by default; uncomment and edit as needed.
 

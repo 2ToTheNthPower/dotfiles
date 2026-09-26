@@ -16,7 +16,16 @@
     "opencode@latest",
     "lazygit@latest",
     "lua5_1@latest",
-    "herdr@latest"
+    "herdr@latest",
+    "bat@latest",
+    "eza@latest",
+    "zoxide@latest",
+    "delta@latest",
+    "dust@latest",
+    "yq@latest",
+    "btop@latest",
+    "xh@latest",
+    "gh@latest"
   ],
   "shell": {
     "init_hook": [

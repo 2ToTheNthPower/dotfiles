@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # Auto-activate a Python virtualenv based on the current directory.
 #
 # Looks for a "venv" or ".venv" in the current directory or any of its parents
@@ -5,7 +6,7 @@
 # down again. Shared by ~/.bashrc and ~/.zshrc.
 #
 # This hook only auto-deactivates venvs that it activated itself, so a venv you
-# activate by hand is left alone until you cd somewhere else.
+# activate by hand is left alone until you cd into a project that has its own.
 
 # Virtualenv directories to look for (in priority order).
 _AUTO_VENV_NAMES=(.venv venv)
@@ -60,3 +61,15 @@ _auto_venv() {
   . "$venv/bin/activate"
   _AUTO_VENV_ACTIVE="$VIRTUAL_ENV"
 }
+
+# Hook the function into the current shell and run it once on startup.
+if [ -n "${ZSH_VERSION:-}" ]; then
+  autoload -Uz add-zsh-hook 2>/dev/null
+  add-zsh-hook chpwd _auto_venv 2>/dev/null
+elif [ -n "${BASH_VERSION:-}" ]; then
+  if [ -z "${_AUTO_VENV_HOOKED:-}" ]; then
+    PROMPT_COMMAND="_auto_venv${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
+    _AUTO_VENV_HOOKED=1
+  fi
+fi
+_auto_venv
