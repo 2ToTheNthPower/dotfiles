@@ -13,5 +13,5 @@ local nav = {
   ["<C-l>"] = { "TmuxNavigateRight", "Navigate Right" },
 }
 for lhs, nav_cmd in pairs(nav) do
-  vim.keymap.set({ "n", "t" }, lhs, "<cmd><C-U>" .. nav_cmd[1] .. "<cr>", { desc = nav_cmd[2] })
+  vim.keymap.set({ "n", "t" }, lhs, "<cmd>" .. nav_cmd[1] .. "<cr>", { desc = nav_cmd[2] })
 end
