@@ -22,10 +22,11 @@
     "zoxide@latest",
     "delta@latest",
     "dust@latest",
-    "yq@latest",
     "btop@latest",
     "xh@latest",
-    "gh@latest"
+    "gh@latest",
+    "yq-go@latest",
+    "tmux@latest"
   ],
   "shell": {
     "init_hook": [

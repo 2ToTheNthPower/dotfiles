@@ -2,7 +2,23 @@ return {
   -- Gruvbox
   { "ellisonleao/gruvbox.nvim", name = "gruvbox", priority = 1000 },
   -- Catppuccin
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    opts = {
+      flavour = "mocha",
+      transparent_background = false,
+      integrations = {
+        cmp = true,
+        gitsigns = true,
+        treesitter = true,
+        telescope = { enabled = true },
+        which_key = true,
+        mini = { enabled = true },
+      },
+    },
+  },
   -- Tokyo Night
   { "folke/tokyonight.nvim", name = "tokyonight", priority = 1000 },
   -- One Dark
@@ -59,4 +75,6 @@ return {
       })
     end,
   },
+  -- Load Catppuccin Mocha by default (still swappable with :Themery).
+  { "LazyVim/LazyVim", opts = { colorscheme = "catppuccin" } },
 }
