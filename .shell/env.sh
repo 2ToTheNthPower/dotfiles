@@ -30,6 +30,3 @@ export EZA_COLORS="${EZA_COLORS:-di=38;2;137;180;250:ex=38;2;166;227;161:ln=38;2
 
 # fzf defaults + Catppuccin Mocha colours (respect any value already set).
 export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS:---height 40% --layout=reverse --border --info=inline --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8,fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc,marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8,selected-bg:#313244}"
-
-# Flags only; use `proxy on` to enable them for the current shell.
-[ -s "$HOME/set-proxy.sh" ] && . "$HOME/set-proxy.sh"
