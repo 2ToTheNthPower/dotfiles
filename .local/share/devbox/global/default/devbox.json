@@ -13,7 +13,6 @@
     "gcc@latest",
     "ruby@latest",
     "luarocks@latest",
-    "opencode@latest",
     "lazygit@latest",
     "lua5_1@latest",
     "herdr@latest",
@@ -26,7 +25,8 @@
     "xh@latest",
     "gh@latest",
     "yq-go@latest",
-    "tmux@latest"
+    "tmux@latest",
+    "opencode@latest"
   ],
   "shell": {
     "init_hook": [

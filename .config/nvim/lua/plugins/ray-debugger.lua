@@ -10,8 +10,20 @@ return {
     cmd = { "RayDebug", "RayDebugAttach", "RayDebugPostMortem", "RayDebugWatch", "RayDebugRefresh" },
     -- Chosen to not clash with LazyVim's DAP keys (<leader>dr is "Toggle REPL").
     keys = {
-      { "<leader>dR", function() require("ray-debugger").pick() end, desc = "Ray: Attach to paused task" },
-      { "<leader>dW", function() require("ray-debugger").watch() end, desc = "Ray: Toggle watch" },
+      {
+        "<leader>dR",
+        function()
+          require("ray-debugger").pick()
+        end,
+        desc = "Ray: Attach to paused task",
+      },
+      {
+        "<leader>dW",
+        function()
+          require("ray-debugger").watch()
+        end,
+        desc = "Ray: Toggle watch",
+      },
     },
     opts = {
       dashboard_url = "http://127.0.0.1:8265",
