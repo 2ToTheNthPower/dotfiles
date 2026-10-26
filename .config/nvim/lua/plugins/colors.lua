@@ -1,4 +1,5 @@
 return {
+  { "Shatur/neovim-ayu", name = "ayu-dark", priority = 1000 },
   -- Gruvbox
   { "ellisonleao/gruvbox.nvim", name = "gruvbox", priority = 1000 },
   -- Catppuccin
@@ -54,6 +55,7 @@ return {
     config = function()
       require("themery").setup({
         themes = {
+          "ayu-dark",
           "gruvbox",
           "catppuccin",
           "tokyonight",

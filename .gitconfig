@@ -16,3 +16,7 @@
 	conflictStyle = zdiff3
 [diff]
 	colorMoved = default
+[http]
+	lowSpeedLimit = 1000
+	lowSpeedTime = 60
+	postBuffer = 524288000
