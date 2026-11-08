@@ -27,8 +27,7 @@
     "yq-go@latest",
     "tmux@latest",
     "claude-code@latest",
-    "playwright@latest",
-    "google-chrome@latest"
+    "starship@latest"
   ],
   "shell": {
     "init_hook": [
