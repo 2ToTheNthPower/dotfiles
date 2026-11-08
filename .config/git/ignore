@@ -1,0 +1,58 @@
+# Global gitignore (git reads ~/.config/git/ignore automatically).
+# Applies to every repo on this machine. Collaborators don't get it, so keep
+# project-specific rules in each repo's own .gitignore.
+#
+# Deliberately NOT ignored: .vscode/ and uv.lock (both meant to be committed).
+
+# --- Python bytecode / builds ---------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+build/
+dist/
+wheels/
+*.egg-info/
+*.egg
+.eggs/
+pip-wheel-metadata/
+
+# --- virtualenvs -----------------------------------------------------------
+.venv/
+venv/
+
+# --- tool caches -------------------------------------------------------------
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pytype/
+.pyre/
+.dmypy.json
+.hypothesis/
+.tox/
+.nox/
+.cache/
+
+# --- coverage / profiling ------------------------------------------------------
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+*.prof
+
+# --- notebooks -------------------------------------------------------------------
+.ipynb_checkpoints/
+
+# --- secrets / local env -----------------------------------------------------------
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# --- editor / OS junk -------------------------------------------------------------
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+.idea/
