@@ -1,31 +1,34 @@
-# lazygit — Catppuccin Mocha (mauve accent)
-# Theme from https://github.com/catppuccin/lazygit
+# lazygit — ayu dark (matches Neovim's ayu-dark)
 gui:
   theme:
     activeBorderColor:
-      - "#cba6f7"
+      - "#E6B450"
       - bold
     inactiveBorderColor:
-      - "#a6adc8"
+      - "#454B55"
     searchingActiveBorderColor:
-      - "#f9e2af"
+      - "#39BAE6"
     optionsTextColor:
-      - "#89b4fa"
+      - "#59C2FF"
     selectedLineBgColor:
-      - "#313244"
+      - "#1B3A5B"
     inactiveViewSelectedLineBgColor:
-      - "#6c7086"
+      - "#122132"
     cherryPickedCommitFgColor:
-      - "#cba6f7"
+      - "#D2A6FF"
     cherryPickedCommitBgColor:
-      - "#45475a"
+      - "#1B3A5B"
     markedBaseCommitFgColor:
-      - "#89b4fa"
+      - "#59C2FF"
     markedBaseCommitBgColor:
-      - "#f9e2af"
+      - "#E6B450"
     unstagedChangesColor:
-      - "#f38ba8"
+      - "#F26D78"
     defaultFgColor:
-      - "#cdd6f4"
+      - "#BFBDB6"
   authorColors:
-    "*": "#b4befe"
+    "*": "#39BAE6"
+git:
+  # Render diffs with delta, same as `git diff`.
+  diffRenderers:
+    - command: delta --paging=never
