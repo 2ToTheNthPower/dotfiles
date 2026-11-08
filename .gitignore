@@ -1,0 +1,15 @@
+# Never commit keys or secrets to the dotfiles repo.
+id_*
+!id_*.pub
+*.pem
+*.key
+*.p12
+*.pfx
+allowed_signers
+.ssh/
+.gnupg/
+.env
+.env.*
+*secret*
+*token*
+*credential*
