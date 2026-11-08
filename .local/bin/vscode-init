@@ -1,0 +1,131 @@
+#!/usr/bin/env bash
+# vscode-init: write .vscode/settings.json and .vscode/extensions.json for a
+# workspace so VS Code formats the same way Neovim does (conform.nvim).
+# Every language is handled by its VS Code extension; nothing here points at
+# Neovim's Mason binaries.
+#
+# usage: vscode-init [-f] [dir]
+#   dir  workspace root (default: current directory)
+#   -f   let these settings override keys already present in settings.json
+#        (default: keys already in the file win; only missing keys are added)
+set -euo pipefail
+
+usage() { echo "usage: vscode-init [-f] [dir]" >&2; }
+
+force=0
+while getopts ':fh' opt; do
+  case $opt in
+  f) force=1 ;;
+  h) usage; exit 0 ;;
+  *) usage; exit 2 ;;
+  esac
+done
+shift $((OPTIND - 1))
+
+dir="${1:-.}"
+[ -d "$dir" ] || { echo "vscode-init: no such directory: $dir" >&2; exit 1; }
+command -v jq >/dev/null 2>&1 || { echo "vscode-init: jq is required" >&2; exit 1; }
+
+vsdir="$dir/.vscode"
+mkdir -p "$vsdir"
+
+# Mirrors conform.nvim formatters_by_ft. Languages that Neovim formats through
+# the LSP (toml, c/cpp, rust) get the matching VS Code extension.
+settings=$(jq -n '{
+  "editor.formatOnSave": true,
+
+  # python: ruff_fix, ruff_format, ruff_organize_imports
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.ruff": "explicit",
+      "source.organizeImports.ruff": "explicit"
+    }
+  },
+
+  # lua: stylua
+  "[lua]": { "editor.defaultFormatter": "JohnnyMorganz.stylua" },
+
+  # sh: shfmt (no flags; both sides honour .editorconfig)
+  "[shellscript]": { "editor.defaultFormatter": "foxundermoon.shell-format" },
+
+  # markdown: prettier, then markdownlint-cli2 --fix, markdown-toc
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": { "source.fixAll.markdownlint": "explicit" }
+  },
+
+  # prettier (lazyvim formatting.prettier extra)
+  "[css]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[scss]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[less]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[html]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[handlebars]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[graphql]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[javascriptreact]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[typescript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[typescriptreact]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[vue]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[json]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[jsonc]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[yaml]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+
+  # sql: sqlfluff format --dialect=ansi (extension expects `sqlfluff` on PATH)
+  "[sql]": { "editor.defaultFormatter": "dorzey.vscode-sqlfluff" },
+  "sqlfluff.dialect": "ansi",
+  "sqlfluff.format.enabled": true,
+
+  # LSP-formatted in Neovim
+  "[toml]": { "editor.defaultFormatter": "tamasfe.even-better-toml" },
+  "[c]": { "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd" },
+  "[cpp]": { "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd" },
+  "[rust]": { "editor.defaultFormatter": "rust-lang.rust-analyzer" }
+}')
+
+extensions=$(jq -n '{
+  "recommendations": [
+    "charliermarsh.ruff",
+    "esbenp.prettier-vscode",
+    "JohnnyMorganz.stylua",
+    "foxundermoon.shell-format",
+    "DavidAnson.vscode-markdownlint",
+    "dorzey.vscode-sqlfluff",
+    "tamasfe.even-better-toml",
+    "llvm-vs-code-extensions.vscode-clangd",
+    "rust-lang.rust-analyzer",
+    "EditorConfig.EditorConfig"
+  ]
+}')
+
+# write_json <file> <desired-json> <jq-merge-filter>
+# The filter sees a 2-element array: [existing, desired].
+write_json() {
+  local file=$1 desired=$2 filter=$3
+  if [ -s "$file" ]; then
+    if ! jq -e . "$file" >/dev/null 2>&1; then
+      echo "vscode-init: $file is not plain JSON (comments or trailing commas?); fix it or move it aside" >&2
+      return 1
+    fi
+    if ! jq -s "$filter" "$file" <(printf '%s' "$desired") >"$file.tmp"; then
+      rm -f "$file.tmp"
+      return 1
+    fi
+    mv "$file.tmp" "$file"
+    echo "updated $file"
+  else
+    printf '%s\n' "$desired" >"$file"
+    echo "created $file"
+  fi
+}
+
+if [ "$force" = 1 ]; then
+  settings_filter='.[0] * .[1]' # desired wins
+else
+  settings_filter='.[1] * .[0]' # existing wins
+fi
+# shellcheck disable=SC2016  # jq variables, not shell
+extensions_filter='.[0] as $a | .[1] as $b | ($a * $b) | .recommendations = (($a.recommendations // []) + ($b.recommendations // []) | unique)'
+
+write_json "$vsdir/settings.json" "$settings" "$settings_filter"
+write_json "$vsdir/extensions.json" "$extensions" "$extensions_filter"
