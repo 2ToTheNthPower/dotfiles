@@ -1,0 +1,46 @@
+# starship prompt, trimmed to what's actually used.
+#
+# Only modules named in `format` are evaluated. Everything else (battery,
+# netns, cloud, language toolchains, ...) is skipped entirely, which keeps
+# render time down and the prompt identical across bash/zsh, Linux/macOS.
+"$schema" = "https://starship.rs/config-schema.json"
+
+format = """
+$username$hostname$directory$git_branch$git_state$git_status$python$cmd_duration$jobs
+$character"""
+
+# Shown only over SSH, so you can tell which machine you're on.
+[username]
+format = "[$user]($style)@"
+
+[hostname]
+ssh_only = true
+format = "[$hostname]($style) in "
+
+[directory]
+truncation_length = 4
+truncate_to_repo = true
+
+# Rebase/merge/cherry-pick in progress.
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+
+[git_status]
+# Submodule status is the slow part in large repos.
+ignore_submodules = true
+
+# Version + venv name. Shows in Python projects and whenever a venv is active.
+[python]
+format = 'via [${symbol}${version}( \($virtualenv\))]($style) '
+
+[cmd_duration]
+min_time = 2_000
+
+# Background jobs (Ctrl-Z'd editors etc.).
+[jobs]
+symbol = "✦"
+
+# Green on success, red after a failed command.
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
