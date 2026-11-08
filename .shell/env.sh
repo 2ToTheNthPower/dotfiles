@@ -1,6 +1,20 @@
 # shellcheck shell=bash
 # Environment variables shared by bash and zsh.
 
+# Keep configs in ~/.config on macOS too. Without this, lazygit (and some other
+# tools) look in ~/Library/Application Support instead of the linked dotfiles.
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+
+# Homebrew on macOS (Apple Silicon or Intel), if present. Comes before devbox
+# so devbox packages win when both provide a tool.
+for _brew in /opt/homebrew/bin/brew /usr/local/bin/brew; do
+  if [ -x "$_brew" ]; then
+    eval "$("$_brew" shellenv)"
+    break
+  fi
+done
+unset _brew
+
 # Make devbox global packages (nvim, bat, lazygit, yq, ...) available in every
 # shell. `devbox global shellenv` costs ~130ms, so its output is cached and only
 # regenerated when the devbox lockfile changes (e.g. after `devbox global add`).
@@ -48,7 +62,9 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 # ~/.config/bat/themes; install.sh runs `bat cache --build` to register it.
 if command -v bat >/dev/null 2>&1; then
   export BAT_THEME="ayu-dark"
-  export MANPAGER="bat -p"
+  # col -bx strips man's backspace overstrikes (needed on macOS's man).
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+  export MANROFFOPT="-c"
   export BAT_PAGER="less -R"
 fi
 
