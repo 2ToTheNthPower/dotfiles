@@ -20,3 +20,6 @@ command -v fzf >/dev/null && source <(fzf --zsh)
 
 # zoxide: smarter cd.
 command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
+
+# starship prompt.
+command -v starship >/dev/null && eval "$(starship init zsh)"

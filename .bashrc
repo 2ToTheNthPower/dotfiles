@@ -48,5 +48,6 @@ command -v fzf >/dev/null && source <(fzf --bash)
 # shellcheck disable=SC1090
 command -v zoxide >/dev/null && eval "$(zoxide init bash)"
 
-# opencode
-export PATH=/home/aaron/.opencode/bin:$PATH
+
+# starship prompt. Keep last: it wraps the PROMPT_COMMAND hooks set above.
+command -v starship >/dev/null && eval "$(starship init bash)"
