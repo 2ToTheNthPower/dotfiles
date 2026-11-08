@@ -12,8 +12,6 @@
 	line-numbers = true
 	syntax-theme = Catppuccin Mocha
 	true-color = always
-[merge]
-	conflictStyle = zdiff3
 [diff]
 	colorMoved = default
 [http]
