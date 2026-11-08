@@ -26,7 +26,9 @@
     "gh@latest",
     "yq-go@latest",
     "tmux@latest",
-    "opencode@latest"
+    "claude-code@latest",
+    "playwright@latest",
+    "google-chrome@latest"
   ],
   "shell": {
     "init_hook": [

@@ -47,3 +47,6 @@ command -v fzf >/dev/null && source <(fzf --bash)
 # zoxide: smarter cd.
 # shellcheck disable=SC1090
 command -v zoxide >/dev/null && eval "$(zoxide init bash)"
+
+# opencode
+export PATH=/home/aaron/.opencode/bin:$PATH

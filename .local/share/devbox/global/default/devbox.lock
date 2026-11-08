@@ -135,6 +135,44 @@
         }
       }
     },
+    "claude-code@latest": {
+      "last_modified": "2026-11-01T00:57:29Z",
+      "resolved": "github:NixOS/nixpkgs/d357a2b54f0b6dc4aeb4e993190a52cf151b6f24#claude-code",
+      "source": "devbox-search",
+      "version": "2.1.316",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/aqk7nfa81s27wiamgwpgc362xdr1hhpl-claude-code-2.1.316",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/aqk7nfa81s27wiamgwpgc362xdr1hhpl-claude-code-2.1.316"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/hg8a2p0vj75bshrkv50v0i47i2z3lsai-claude-code-2.1.316",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/hg8a2p0vj75bshrkv50v0i47i2z3lsai-claude-code-2.1.316"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/pw9hhdspm85i5ljy9cb965nz517qk9f7-claude-code-2.1.316",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/pw9hhdspm85i5ljy9cb965nz517qk9f7-claude-code-2.1.316"
+        }
+      }
+    },
     "delta@latest": {
       "last_modified": "2026-08-27T07:16:00Z",
       "resolved": "github:NixOS/nixpkgs/c27cdad491a991b11ed731760aa2ef8db0cb0410#delta",
@@ -530,6 +568,24 @@
       "last_modified": "2026-09-17T08:15:29Z",
       "resolved": "github:NixOS/nixpkgs/a32edd7654519351e48e80372a928df336394670?lastModified=1789632929&narHash=sha256-RjR8AyvGlWuw16XRj7C1YDEw4E27ciuyPeB2nDMzgTU%3D"
     },
+    "google-chrome@latest": {
+      "last_modified": "2026-10-29T23:18:20Z",
+      "resolved": "github:NixOS/nixpkgs/db379a58acfef9783b46ffde2957dac397c92b85#google-chrome",
+      "source": "devbox-search",
+      "version": "156.0.8078.80",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/fv84iw2jdwdni1p8n3c4ll25bmm8wphz-google-chrome-156.0.8078.80",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/fv84iw2jdwdni1p8n3c4ll25bmm8wphz-google-chrome-156.0.8078.80"
+        }
+      }
+    },
     "herdr@latest": {
       "last_modified": "2026-08-27T07:16:00Z",
       "resolved": "github:NixOS/nixpkgs/c27cdad491a991b11ed731760aa2ef8db0cb0410#herdr",
@@ -717,41 +773,41 @@
         }
       }
     },
-    "opencode@latest": {
-      "last_modified": "2026-08-27T07:16:00Z",
-      "resolved": "github:NixOS/nixpkgs/c27cdad491a991b11ed731760aa2ef8db0cb0410#opencode",
+    "playwright@latest": {
+      "last_modified": "2026-11-03T19:55:20Z",
+      "resolved": "github:NixOS/nixpkgs/9d3b8db48266c17be0b5f9c6360c3ecfbac3d1f5#playwright",
       "source": "devbox-search",
-      "version": "1.18.21",
+      "version": "1.64.1",
       "systems": {
         "aarch64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/a2q4wl27r3an9fm5c5c46kzv4zrxlyrk-opencode-1.18.21",
+              "path": "/nix/store/gwh760fp49ds57czv3jh8w3axpmyr8pf-playwright-core-1.64.1",
               "default": true
             }
           ],
-          "store_path": "/nix/store/a2q4wl27r3an9fm5c5c46kzv4zrxlyrk-opencode-1.18.21"
+          "store_path": "/nix/store/gwh760fp49ds57czv3jh8w3axpmyr8pf-playwright-core-1.64.1"
         },
         "aarch64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/pcy35m7c8x627f573iqqdcw3ir84rqfj-opencode-1.18.21",
+              "path": "/nix/store/09x1897q5nnds8adzwzxir8mgfvsqbdp-playwright-core-1.64.1",
               "default": true
             }
           ],
-          "store_path": "/nix/store/pcy35m7c8x627f573iqqdcw3ir84rqfj-opencode-1.18.21"
+          "store_path": "/nix/store/09x1897q5nnds8adzwzxir8mgfvsqbdp-playwright-core-1.64.1"
         },
         "x86_64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/iqc8xfx692ym3pds6ky0vhqzscg6kgxd-opencode-1.18.21",
+              "path": "/nix/store/phc5gsqnm205r6hvlay77f7ia3w4bzzk-playwright-core-1.64.1",
               "default": true
             }
           ],
-          "store_path": "/nix/store/iqc8xfx692ym3pds6ky0vhqzscg6kgxd-opencode-1.18.21"
+          "store_path": "/nix/store/phc5gsqnm205r6hvlay77f7ia3w4bzzk-playwright-core-1.64.1"
         }
       }
     },
